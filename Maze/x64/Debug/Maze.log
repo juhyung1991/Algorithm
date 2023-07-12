@@ -1,5 +1,4 @@
 ﻿  Board.cpp
-  Maze.cpp
-  Player.cpp
-  코드를 생성하고 있습니다...
-  Maze.vcxproj -> C:\Users\juhyu\source\repos\Algorithm\x64\Debug\Maze.exe
+C:\Users\juhyu\source\repos\Inflearn\Algorithm\Maze\Board.cpp(5,20): warning C4566: 유니버설 문자 이름 '\u25EF'(으)로 표현되는 문자는 현재 코드 페이지(949)에서 표현할 수 없습니다.
+C:\Users\juhyu\source\repos\Inflearn\Algorithm\Maze\Board.cpp(6,21): warning C4566: 유니버설 문자 이름 '\u2B1B'(으)로 표현되는 문자는 현재 코드 페이지(949)에서 표현할 수 없습니다.
+  Maze.vcxproj -> C:\Users\juhyu\source\repos\Inflearn\Algorithm\x64\Debug\Maze.exe
