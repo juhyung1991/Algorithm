@@ -3,7 +3,7 @@
 #include "Player.h"
 
 const char* TILE = "■";
-const char* TILE2 = "⬛";
+//const char* TILE2 = "⬛";
 
 Board::Board()
 {
