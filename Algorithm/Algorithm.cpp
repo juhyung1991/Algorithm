@@ -141,8 +141,5 @@ int Kruskal(vector<CostEdge>& selected)
 
 int main()
 {
-	CreateGraph();
 
-	vector<CostEdge> selected;
-	int cost = Kruskal(selected);
 }

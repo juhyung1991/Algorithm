@@ -46,32 +46,36 @@ void Player::RightHand()
 	// 목적지 도착하기 전에는 계속 실행
 	Pos dest = _board->GetExitPos();
 
-	Pos fornt[4] =
+	Pos front[] =
 	{
 		Pos {-1, 0},//up
 		Pos {0, -1},//left
 		Pos {1, 0},//down
-		Pos {0, 1}//Right
+		Pos {0, 1},//Right
+		Pos {-1, -1},//up left
+		Pos {1, -1},//down left 
+		Pos {1, 1},//down right
+		Pos {-1, 1}//up Right
 	};
 
 	while (pos != dest)
 	{
 		//1. 현재 바라보는 방향을 기준으로 오른쪽으로 갈 수 있는지 확인
 		int32 newDir = (_dir - 1 + DIR_COUNT) % DIR_COUNT;
-		if (CanGo(pos + fornt[newDir]))
+		if (CanGo(pos + front[newDir]))
 		{
 			//오른쪽 방향으로 90도 회전
 			_dir = newDir;
 			// 앞으로 한 보 전진
-			pos += fornt[_dir];
+			pos += front[_dir];
 
 			_path.push_back(pos);
 		}
 		//2. 현재 바라보는 방향을 기준으로 전진할 수 있는지 확인
-		else if (CanGo(pos + fornt[_dir]))
+		else if (CanGo(pos + front[_dir]))
 		{
 			// 앞으로 한 보 전진
-			pos += fornt[_dir];
+			pos += front[_dir];
 			_path.push_back(pos);
 
 		}
@@ -116,12 +120,21 @@ void Player::Bfs()
 	// 목적지 도착하기 전에는 계속 실행
 	Pos dest = _board->GetExitPos();
 
-	Pos front[4] =
+	enum
+	{
+		DIR_COUNT = 8
+	};
+
+	Pos front[] =
 	{
 		Pos {-1, 0},//up
 		Pos {0, -1},//left
 		Pos {1, 0},//down
-		Pos {0, 1}//Right
+		Pos {0, 1},//Right
+		Pos {-1, -1},//up left
+		Pos {1, -1},//down left 
+		Pos {1, 1},//down right
+		Pos {-1, 1}//up Right
 	};
 
 	const int32 size = _board->GetSize();
