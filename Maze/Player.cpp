@@ -17,8 +17,13 @@ void Player::Init(Board* board)
 void Player::Update(uint64 deltaTick)
 {
 	if (_pathIndex >= _path.size())
-		return;
+	{
+		//_board->GenerateMap_Kruskal();
+		_board->GenerateMap_Prim();
 
+		Init(_board);
+		return;
+	}
 	_sumTick += deltaTick;
 	if (_sumTick >= MOVE_TICK)
 	{
@@ -177,7 +182,7 @@ void Player::Bfs()
 
 	//TODO
 	_path.clear();
-
+	_pathIndex = 0;
 	//거꾸로 거슬러 올라간다.
 	pos = dest;
 	while (true)
