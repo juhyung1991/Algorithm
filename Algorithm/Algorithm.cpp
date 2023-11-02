@@ -7,47 +7,73 @@ using namespace std;
 #include <thread>
 #include <windows.h>
 
-// 오늘의 주제 : 동적 계획법(DP)
-// ENCHANT
-
-// + 0 집행검
-// 무기 강화 주문서 => +1 / +2 / +3 중 하나
-
-// +N 집행검 뜬느 경우의 수는?
-// ex +1 +2 +3 +4 ... +9
-// ex +3 +6 +9
-// ex +1 +3 +4
-
-int N;
-int cache[100];
-
-// [+num]에서 시작해서, [+N]까지 가는 경우의 수
-int Enchant(int num)
+void CreateGraph_1()
 {
-	// 기저 사례
-	if(num > N)
-		return 0;
-	if(num == N)
-		return 1;
+	struct Vertex
+	{
+		vector<Vertex*> edges;
+		//int data;
+	};
+	
+	vector<Vertex> v;
+	v.resize(6);
 
-	// 캐시
-	int& ret = cache[num];
-	if(ret != -1)
-		return ret;
+	v[0].edges.push_back(&v[1]);
+	v[0].edges.push_back(&v[3]);
+	v[1].edges.push_back(&v[0]);
+	v[1].edges.push_back(&v[2]);
+	v[1].edges.push_back(&v[3]);
+	v[3].edges.push_back(&v[4]);
+	v[5].edges.push_back(&v[4]);
 
-	// 적용
-	return ret = Enchant(num + 1) + Enchant(num + 2) + Enchant(num + 3);
-
+	// Q) 0번 -> 3번 정점이 연결되어 있나요?
+	bool connected = false;
+	for (Vertex* edge : v[0].edges)
+	{
+		if (edge == &v[3])
+		{
+			connected = true;
+			break;
+		}
+	}
 }
+void CreateGraph_2()
+{
+	struct Vertex
+	{
+		//vector<Vertex*> edges;
+		//int data;
+	};
 
+	vector<Vertex> v;
+	v.resize(6);
 
+	// 연결된 목록을 따로 관리
+	// adjacent[n] -> n번째 정점과 연결된 정점 목록
+	vector<vector<int>> adjacent(6);
 
+	adjacent[0] = { 1, 3 };
+	adjacent[1] = { 0, 2, 3 };
+	adjacent[3] = { 4 };
+	adjacent[5] = { 4 };
+
+	// Q) 0번 -> 3번 정점이 연결되어 있나요?
+	bool connected = false;
+	for (int vertex : adjacent[0])
+	{
+		if (vertex == 3)
+		{
+			connected = true;
+			break;
+		}
+	}
+
+	//STL
+	vector<int>& adj = adjacent[0];
+	bool connected2 = (std::find(adj.begin(), adj.end(), 3) != adj.end());
+}
 int main()
 {
-	N = 2;
-
-	memset(cache, -1, sizeof(cache));
-
-	int ret = Enchant(0);
-	cout << ret << endl;
+	CreateGraph_1();
+	CreateGraph_2();
 }
